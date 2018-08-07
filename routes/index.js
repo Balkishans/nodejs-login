@@ -12,7 +12,7 @@ var pool = require('./../config/database');
 //};
 //var pool = new pg.Pool(config);
 router.get('/', function (req, res, next) {
-    return res.render('register.ejs');
+    return res.render('index.ejs');
 });
 
 router.post('/', function (req, res, next) {
@@ -36,10 +36,13 @@ router.post('/', function (req, res, next) {
                     if (result.rows[0]) {
                         res.send({"Success": "Email is already used."});
                     } else {
-
+                        console.log(personInfo.username);
+                        console.log(personInfo.email);
+                        console.log(personInfo.password);
                         client.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3) returning id', [personInfo.username, personInfo.email, personInfo.password], function (err, result) {
-
+                            
                             done();
+                            console.log(result.rows[0].id);
                             if (result.rows[0]) {
                                 res.send({"Success": "You are regestered,You can login now."});
                             }
