@@ -32,8 +32,8 @@ router.post('/', function (req, res, next) {
                 }
                 client.query('SELECT * FROM users WHERE email = $1', [personInfo.email], function (err, result) {
                     //call `done()` to release the client back to the pool
-                    //done();
-                    console.log(result.rows[0]);
+                    done();
+                    
                     if (result.rows[0]) {
                         res.send({"Success": "Email is already used."});
                     } else {
