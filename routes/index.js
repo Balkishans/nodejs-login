@@ -2,6 +2,7 @@ var express = require('express');
 var pg = require("pg");
 var router = express.Router();
 var pool = require('./../config/database');
+var InsertUserInDB = require('./../controller/usercontroller');
 //var config = {
 //    user: 'postgres',
 //    database: 'testdb',
@@ -33,24 +34,29 @@ router.post('/', function (req, res, next) {
                 client.query('SELECT * FROM users WHERE email = $1', [personInfo.email], function (err, result) {
                     //call `done()` to release the client back to the pool
                     done();
-                    
+
                     if (result.rows[0]) {
                         res.send({"Success": "Email is already used."});
                     } else {
                         console.log(personInfo.username);
                         console.log(personInfo.email);
                         console.log(personInfo.password);
-                        client.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3) returning id', [personInfo.username, personInfo.email, personInfo.password], function (err, result) {
-                            
-                            done();
-                            console.log(result.rows[0].id);
-                            if (result.rows[0]) {
-                                res.send({"Success": "You are regestered,You can login now."});
-                            }
-
-
+                        //client.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3) returning id', [personInfo.username, personInfo.email, personInfo.password], function (err, result) {
+//                        client.query('INSERT INTO users (name, email, password) VALUES ("balkishan", "test123@admin.com","admin") returning id', function (err, result) {
+//
+//                        //done();
+//                        //console.log(result.rows[0].id);
+//                        
+//                        if (result.rows[0]) {
+//                            res.send({"Success": "You are regestered,You can login now."});
+//                        }
+//
+//
+//                        });
+                        InsertUserInDB(personInfo).then((id) => {
+                            console.log('get id by function  '+id);//Value here is defined as u expect.
+                            res.send({"Success": "You are regestered,You can login now."});
                         });
-
                     }
                     if (err) {
                         console.log(err);
