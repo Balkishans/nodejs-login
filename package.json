@@ -2,7 +2,7 @@
   "name" : "nodejs-app",
   "version" : "0.0.1",
    "scripts" : {
-    "start" : "node nodejs-app.js"
+   "start" : "node nodejs-app.js"
   }, 
   "main" : "./nodejs-app.js",
   "author" : {
