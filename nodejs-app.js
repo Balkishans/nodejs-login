@@ -12,6 +12,7 @@ var pg = require('pg');
 var session = require('express-session');
 const http = require('http');
 var port = 3000;
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');	
 
@@ -24,8 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + '/views'));
 
-var index = require('./routes/index');
-app.use('/', index);
+//var index = require('./routes/index');
+var employees = require('./routes/employees');
+//app.use('/', index);
+app.use('/employees', employees);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

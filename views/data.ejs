@@ -7,8 +7,13 @@
 	</script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="./css/main.css">
+<% include ../views/partials/head %>
 </head>
 <body>
+<div class="container">
+<header>
+            <% include ../views/partials/header %>
+        </header>
 	<div class="col-md-4 col-md-offset-4">
 		<div>
 			<p>Profile Detail</p>
@@ -21,9 +26,11 @@
 				</table>
 			</center>
 		</div>
-		<div class="abc">
-			<a href="/logout">Logout</a>
-		</div>
+		
 	</div>
+</div>
+<footer>
+    <% include ../views/partials/footer %>
+</footer>
 </body>
 </html>
