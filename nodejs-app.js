@@ -18,17 +18,17 @@ app.set('view engine', 'ejs');
 
 
 
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000 }}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + '/views'));
 
-//var index = require('./routes/index');
+var index = require('./routes/index');
 var employees = require('./routes/employees');
-//app.use('/', index);
-app.use('/employees', employees);
+app.use('/', index);
+app.use('/', employees);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
