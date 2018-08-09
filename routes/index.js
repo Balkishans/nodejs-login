@@ -3,6 +3,7 @@ var pg = require("pg");
 var router = express.Router();
 var pool = require('./../config/database');
 var InsertUserInDB = require('./../controller/usercontroller');
+var loggedIn=require('./../config/genutil');
 //var config = {
 //    user: 'postgres',
 //    database: 'testdb',
@@ -12,10 +13,12 @@ var InsertUserInDB = require('./../controller/usercontroller');
 //    idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
 //};
 //var pool = new pg.Pool(config);
+router.get('/home',loggedIn ,function (req, res, next) {
+    return res.render('home.ejs');
+});
 router.get('/', function (req, res, next) {
     return res.render('index.ejs');
 });
-
 router.post('/', function (req, res, next) {
     console.log(req.body);
     var personInfo = req.body;
@@ -100,7 +103,7 @@ router.post('/login', function (req, res, next) {
         });
     });
 });
-router.get('/profile', function (req, res, next) {
+router.get('/profile', loggedIn,function (req, res, next) {
     console.log("profile");
     pool.connect(function (err, client, done) {
         client.query('SELECT * FROM users WHERE id = $1', [req.session.userId], function (err, data) {
