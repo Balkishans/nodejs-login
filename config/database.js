@@ -24,5 +24,5 @@ var prodconfig = {
     ssl: true
 };
 
-var pool = new pg.Pool(devconfig);
+var pool = new pg.Pool(prodconfig);
 module.exports = pool;
